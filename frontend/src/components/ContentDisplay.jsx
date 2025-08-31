@@ -222,10 +222,10 @@ const ContentDisplay = ({ step, onAnswer }) => {
     switch (step.type) {
       case "intro":
         return (
-          <div className="flex flex-col items-center justify-center text-center h-full">
+          <div className="flex flex-col items-center justify-center text-center h-full overflow-y-auto py-4">
             <motion.p
               key={step.text}
-              className="text-2xl font-semibold text-[var(--color-text-heading)] leading-relaxed"
+              className="text-2xl font-semibold text-[var(--color-text-heading)] leading-relaxed flex-shrink-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -235,15 +235,15 @@ const ContentDisplay = ({ step, onAnswer }) => {
             {step.image && (
               <motion.button
                 onClick={() => setIsImageModalOpen(true)}
-                className="mt-6 cursor-zoom-in"
+                className="cursor-zoom-in"
                 title="Click to enlarge"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <motion.img
                   src={step.image}
                   alt="Ancient Map"
-                  className="max-h-64 object-contain rounded-lg shadow-lg border-4 border-white"
+                  className="max-h-60 object-contain rounded-lg shadow-lg"
                   layoutId={`map-image-${step.text}`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
