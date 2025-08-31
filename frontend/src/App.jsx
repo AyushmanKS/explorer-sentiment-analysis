@@ -38,8 +38,7 @@ function App() {
       try {
         const { data } = await axios.get(`${PROGRESS_API_ROUTE}/${userId}`);
         setUnlockedLevel(data.unlockedLevel);
-        // Start at the highest unlocked level when the app loads
-        setCurrentLevel(data.unlockedLevel);
+        setCurrentLevel(1);
       } catch (error) {
         console.error("Could not fetch progress. Starting fresh.", error);
         setUnlockedLevel(1);
@@ -88,10 +87,8 @@ function App() {
     }
   }, [currentStep, currentLevel, gameState, currentStepData, saveProgress]);
 
-  // --- LOGIC UPDATED HERE ---
   const handleSetCurrentLevel = useCallback(
     (level) => {
-      // Only allow navigation if the level is unlocked
       if (level <= unlockedLevel) {
         setCurrentLevel(level);
         setCurrentStep(0);
@@ -145,8 +142,7 @@ function App() {
       } else {
         setGameState("playing");
         setCurrentStep(0);
-        // Start at the highest unlocked level after the intro
-        setCurrentLevel(unlockedLevel);
+        setCurrentLevel(1);
       }
       return;
     }
@@ -155,7 +151,7 @@ function App() {
     if (isLastStep) {
       if (currentLevel < 8) {
         const nextLevel = currentLevel + 1;
-        saveProgress(nextLevel); // This will update unlockedLevel
+        saveProgress(nextLevel);
         setCurrentLevel(nextLevel);
         setCurrentStep(0);
       }
@@ -167,7 +163,6 @@ function App() {
     currentStep,
     saveProgress,
     currentLevel,
-    unlockedLevel, // Re-added dependency
     activeContentData,
     currentStepData,
   ]);
@@ -210,7 +205,7 @@ function App() {
         <TopNavBar
           levels={gameData}
           currentLevel={currentLevel}
-          unlockedLevel={unlockedLevel} // Pass the unlocked level state again
+          unlockedLevel={unlockedLevel}
           setCurrentLevel={handleSetCurrentLevel}
         />
       )}
