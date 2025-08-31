@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Light Treasure Hunt Color Palette */
+  --color-background: #fbf5e8;   /* Light Parchment / Sand */
+  --color-text-heading: #6d5d4b; /* Driftwood Brown */
+  --color-text-body: #8a7967;    /* Aged Papyrus Brown */
+  --color-peach: #eaddc7;        /* Sun-bleached Wood / Sandy Tan */
+  --color-blush: #f5bba2;        /* Faded Terracotta / Coral */
+  --color-sky: #a8d8e0;          /* Light Sea Glass Blue */
+  --color-mint: #c2d4c1;         /* Dusty Jungle Leaf Green */
+  --color-lavender: #d3c5e5;     /* Twilight Lavender */
+  --color-gold: #e6c86e;         /* Aged Gold Coin */
+}
+
+body {
+  background-color: var(--color-background);
+  font-family: "Funnel Display", sans-serif;
+  color: var(--color-text-body);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .soft-container {
+    @apply bg-[var(--color-peach)] border-4 border-white rounded-2xl px-16 py-10 text-center text-[var(--color-text-heading)] shadow-lg shadow-[var(--color-peach)]/50;
+  }
+}
