@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const ContentDisplay = ({ step, onAnswer }) => {
   if (!step) {
-    return null; 
+    return null;
   }
 
   const [isQuestionComplete, setIsQuestionComplete] = useState(false);
@@ -254,6 +254,7 @@ const ContentDisplay = ({ step, onAnswer }) => {
           </div>
         );
       case "quiz":
+      case "sentiment-strength":
         return (
           <div className="w-full">
             <h3 className="text-2xl font-bold mb-6">{step.question}</h3>
@@ -339,7 +340,7 @@ const ContentDisplay = ({ step, onAnswer }) => {
                   onDrop={(e) => handleSortDrop(e, binName)}
                   onDragOver={handleDragOver}
                   className={`w-1/2 p-4 border-2 border-dashed rounded-lg min-h-[100px] ${
-                    binName === "Positive"
+                    binName === "Hopeful Gems"
                       ? "border-green-400"
                       : "border-red-400"
                   } ${isQuestionComplete ? "bg-gray-100/70" : ""}`}
@@ -524,6 +525,37 @@ const ContentDisplay = ({ step, onAnswer }) => {
           </div>
         );
       }
+      case "story-vibe":
+        return (
+          <div className="w-full">
+            <h3 className="text-2xl font-bold mb-4">{step.question}</h3>
+            <div className="bg-black/10 p-4 rounded-lg text-lg italic mb-6">
+              "{step.storyText}"
+            </div>
+            <div className="space-y-3">
+              {step.options.map((option) => {
+                const isCorrectAnswer = option === step.answer;
+                const wasChosenWrong = wrongAnswers.includes(option);
+                let buttonStyle = "bg-white/70 hover:bg-white";
+                if (isQuestionComplete && isCorrectAnswer) {
+                  buttonStyle = "bg-green-300";
+                } else if (wasChosenWrong) {
+                  buttonStyle = "bg-red-300";
+                }
+                return (
+                  <button
+                    key={option}
+                    onClick={() => handleQuizSubmit(option)}
+                    disabled={isQuestionComplete}
+                    className={`block w-full p-3 rounded-xl text-lg font-semibold shadow-md transition-all ${buttonStyle}`}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
       case "treasure-reveal":
         return (
           <div className="w-full h-full flex flex-col items-center justify-center text-center">
