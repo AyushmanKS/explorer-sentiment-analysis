@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Progress = require("../models/Progress");
+const Progress = require('../models/Progress');
 
 // @route   GET /api/progress/:userId
 // @desc    Get user progress or create new if not found
-router.get("/:userId", async (req, res) => {
+router.get('/:userId', async (req, res) => {
   try {
     let progress = await Progress.findOne({ userId: req.params.userId });
 
@@ -19,13 +19,13 @@ router.get("/:userId", async (req, res) => {
     res.json(progress);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 });
 
 // @route   POST /api/progress/:userId
 // @desc    Update user progress
-router.post("/:userId", async (req, res) => {
+router.post('/:userId', async (req, res) => {
   const { newUnlockedLevel } = req.body;
 
   try {
@@ -40,7 +40,7 @@ router.post("/:userId", async (req, res) => {
     res.json(updatedProgress);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 });
 
